@@ -10,7 +10,7 @@ const CategoryItem = ({category}) => {
           }} />
           <div className='category-body-container'>
             <h2> {title} </h2>
-            <h2> Shop Now</h2>
+            <h3> Shop Now</h3>
           </div>
         </div>
     )
