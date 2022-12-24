@@ -13,14 +13,6 @@ const Authentication = () => {
 };
 
 export default Authentication;
-
-
-
-
-
-
-
-
 /*
 import { async } from '@firebase/util';
 
