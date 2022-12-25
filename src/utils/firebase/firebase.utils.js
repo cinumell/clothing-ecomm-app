@@ -74,9 +74,9 @@ const firebaseConfig = {
     if (!userAuth) return;
 
     const userDocRef = doc(db, 'users', userAuth.uid);
-    const userSnapShot = await getDoc(userDocRef);
+    const userSnapshot = await getDoc(userDocRef);
     
-    if (!userSnapShot.exists()) {
+    if (!userSnapshot.exists()) {
         const { displayName, email } = userAuth;
         const createdAt = new Date();
 
@@ -91,8 +91,7 @@ const firebaseConfig = {
             console.log('error creating the user', error.message);
         }
     }
-
-    return userDocRef;
+    return userSnapshot;
   }
 
 
@@ -115,7 +114,18 @@ const firebaseConfig = {
     onAuthStateChanged(auth, callback);
   }
 
-
+  export const getCurrentUser = () => {
+    return new Promise((resolve, reject) => {
+      const unsubscribe = onAuthStateChanged(
+        auth,
+        (userAuth) => {
+          unsubscribe();
+          resolve(userAuth);
+        },
+        reject
+      );
+    });
+  };
 
   /** {
    * 
